@@ -21,7 +21,8 @@ Template.home.helpers({
 Template.home.events({
   'click button'(event, instance) {
     console.log(event.target.id);
-    find('#'+event.target.id).innerHTML++;
+    var idOfSpan=event.target.id;
+    document.getElementById("span_"+idOfSpan).innerHTML =innerHTML++;
     //instance.counter.set(instance.counter.get() + 1);
   },
 });
