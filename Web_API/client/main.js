@@ -20,8 +20,6 @@ Template.home.helpers({
 
 Template.home.events({
   'click button'(event, instance) {
-    console.log(event.target.id);
-    find('#'+event.target.id).innerHTML++;
-    //instance.counter.set(instance.counter.get() + 1);
+    document.getElementById("span_"+event.target.id).innerHTML++;
   },
 });
