@@ -7,15 +7,14 @@ Template.home.onCreated(function homeOnCreated() {
   // counter starts at 0
   let ctrl = this;
   this.movies = new ReactiveVar();
-  this.counter = new ReactiveVar(0);
-  HTTP.call('GET', 'http://localhost:3000/api/discover/movie', {},
+  HTTP.call('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=4ec050aec0b57f2c30391a6cb27295ee&language=fr-FR', {},
     function(error, response) {
       ctrl.movies.set(JSON.parse(response.content).results)
     });
   });
 
 Template.home.helpers({
-  counter() {
+  movies() {
     return Template.instance().movies.get();
   },
 });
