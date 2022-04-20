@@ -9,11 +9,6 @@ Meteor.startup(() => {
     console.log("HELLO");
 });
 
-// WebApp.connectHandlers.use('/api/test/', (req, res, next) => {
-//     res.writeHead(200);
-//     res.write(JSON.stringify(localDatas));
-//     res.end();
-// });
 WebApp.connectHandlers.use('/api/discover/movie', (req, res, next) => {
   res.writeHead(200);
   res.end(JSON.stringify(localDatas));
