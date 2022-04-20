@@ -18,11 +18,11 @@ Template.home.helpers({
   },
 });
 
+//fonction ajout like
 Template.home.events({
   'click button'(event, instance) {
-    console.log(event.target.id);
     var idOfSpan=event.target.id;
-    document.getElementById("span_"+idOfSpan).innerHTML =innerHTML++;
+    document.getElementById("span_"+event.target.id).innerHTML++;
     //instance.counter.set(instance.counter.get() + 1);
   },
 });
