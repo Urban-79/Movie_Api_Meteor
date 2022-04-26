@@ -18,21 +18,21 @@ function updateLikeMovie(idMovie) {
 
 
 
-  let dbRessource = LikesCollection.findOne({ id: idMovie });
+  let dbRessource = film.findOne({ id: idMovie });
 
 
 
   if (dbRessource) {
-    LikesCollection.update(
+    film.update(
       { _id: dbRessource._id },
       { $inc: { like: 1 } }
     );
   } else {
-    LikesCollection.insert({ id: idMovie, like: 1 }); //Mettre le insert mongoDB ici
+    film.insert({ id: idMovie, like: 1 }); //Mettre le insert mongoDB ici
   }
 
 
 
-  return LikesCollection.findOne({ id: idMovie });
-  // return {id: LikesCollection.findOne({ id: idMovie }).id, like: LikesCollection.findOne({ id: idMovie }).like}
+  return film.findOne({ id: idMovie });
+  // return {id: film.findOne({ id: idMovie }).id, like: film.findOne({ id: idMovie }).like}
 }

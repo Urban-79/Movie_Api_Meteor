@@ -1,6 +1,6 @@
 import { serverConfig } from "./serverConfig";
 
-function movieByUrl(key){
+function movieByUrl(key) {
     let url;
     switch (key) {
         case "discover":
