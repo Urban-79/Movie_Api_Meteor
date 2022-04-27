@@ -23,15 +23,14 @@ WebApp.connectHandlers.use('/api/find', (req, res, next) => {
   console.log("api/find" ); 
   let moviedata=findMovie();
 
-  res.write('moviedata');
-  res.end();
+  res.writeHead(200);
+  res.end(JSON.stringify({ maReponse: 'test retour' }));
 });
 
 function updateLikeMovie(idMovie) {
 
   //On prend le row du film
   let dbRessource = film.findOne({ id: idMovie });
-
 
   //Si il existe
   if (dbRessource) {
