@@ -22,7 +22,9 @@ WebApp.connectHandlers.use('/api/like', (req, res, next) => {
 WebApp.connectHandlers.use('/api/find', (req, res, next) => {
   console.log("api/find" ); 
   let moviedata=findMovie();
-  res.end(moviedata);
+
+  res.write('moviedata');
+  res.end();
 });
 
 function updateLikeMovie(idMovie) {

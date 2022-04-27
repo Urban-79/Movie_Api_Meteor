@@ -13,7 +13,7 @@ Template.home.onCreated(function homeOnCreated() {
   HTTP.call('GET', 'http://localhost:3000/api/find' , {}, function (error, response) {
   likeJSON =  response;
     });
-  console.log(likeJSON);
+  console.log("Res : "+ likeJSON);
   leJson[0]["like"] = 3;
   //leJson[0]["id"] 
   ctrl.movies.set(leJson);
