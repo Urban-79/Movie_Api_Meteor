@@ -9,14 +9,8 @@ Meteor.startup(() => {
   console.log("HELLO FROM SERVER");
 });
 
-/*WebApp.connectHandlers.use('/api/discover/movie', (req, res, next) => {
-  res.writeHead(200);
-  res.end(JSON.stringify(localDatas));
-});*/
-
 WebApp.connectHandlers.use('/api/like', (req, res, next) => {
-  console.log("api/like")
-  
-  res.writeHead(200);
+  const idMovie = req.url.slice(1);
+  console.log("api/like/" + idMovie);
   res.end;
 });
