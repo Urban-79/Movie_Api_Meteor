@@ -6,7 +6,7 @@ import { HTTP } from 'meteor/http';
 
 Meteor.startup(() => {
   // code to run on server at startup
-  console.log("HELLO");
+  console.log("HELLO FROM SERVER");
 });
 
 /*WebApp.connectHandlers.use('/api/discover/movie', (req, res, next) => {
@@ -14,27 +14,9 @@ Meteor.startup(() => {
   res.end(JSON.stringify(localDatas));
 });*/
 
-function updateLikeMovie(idMovie) {
-
-
-  //On prend le row du film
-  let dbRessource = film.findOne({ id: idMovie });
-
-
-  //Si il existe
-  if (dbRessource) {
-    //On prend l'id du row et on increase son like de 1
-    film.update(
-      { _id: dbRessource._id },
-      { $inc: { like: 1 } }
-    );
-  } else {
-    //Si le row n'existe pas on l'ajoute
-    film.insert({ id: idMovie, like: 1 }); 
-  }
-
-
-  //On retourne un truck
-  return film.findOne({ id: idMovie });
-  // return {id: film.findOne({ id: idMovie }).id, like: film.findOne({ id: idMovie }).like}
-}
+WebApp.connectHandlers.use('/api/like', (req, res, next) => {
+  console.log("api/like")
+  
+  res.writeHead(200);
+  res.end;
+});
