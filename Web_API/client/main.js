@@ -7,7 +7,7 @@ Template.home.onCreated(function homeOnCreated() {
   // counter starts at 0
   let ctrl = this;
   this.movies = new ReactiveVar();
-  HTTP.call('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=4ec050aec0b57f2c30391a6cb27295ee&language=fr-FR', {}, function(error, response) {
+  HTTP.call('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=4ec050aec0b57f2c30391a6cb27295ee&language=fr-FR', {}, function (error, response) {
     ctrl.movies.set(JSON.parse(response.content).results)
   });
 });
@@ -20,6 +20,6 @@ Template.home.helpers({
 
 Template.home.events({
   'click button'(event, instance) {
-    document.getElementById("span_"+event.target.id).innerHTML++;
+    document.getElementById("span_" + event.target.id).innerHTML++;
   },
 });
