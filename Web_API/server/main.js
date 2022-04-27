@@ -11,13 +11,18 @@ Meteor.startup(() => {
   console.log("HELLO FROM SERVER");
 });
 
+//Ajoute un like
 WebApp.connectHandlers.use('/api/like', (req, res, next) => {
   const idMovie = req.url.slice(1);
-  console.log("api/like/" + idMovie);
-  
   updateLikeMovie(idMovie);
-  
   res.end;
+});
+
+//Renvoie les likes
+WebApp.connectHandlers.use('/api/find', (req, res, next) => {
+  console.log("api/find" ); 
+  let moviedata=findMovie();
+  res.end(moviedata);
 });
 
 function updateLikeMovie(idMovie) {
@@ -41,4 +46,8 @@ function updateLikeMovie(idMovie) {
   //On retourne un truck
   return film.findOne({ id: idMovie });
   // return {id: film.findOne({ id: idMovie }).id, like: film.findOne({ id: idMovie }).like}
+}
+
+function findMovie() {
+  return film.find().fetch();
 }
