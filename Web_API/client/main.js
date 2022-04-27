@@ -22,13 +22,6 @@ Template.home.events({
   'click button'(event, instance) {
     document.getElementById("span_" + event.target.id).innerHTML++;
     const idmovie = event.target.id;
-    HTTP.call('PUT', 'http://localhost:3000/api/like/' + idmovie, {}, 
-      function (error, response) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log(response);
-        }
-      });
+    HTTP.call('PUT', 'http://localhost:3000/api/like/' + idmovie, {}, function (error, response) { });
   },
 });
