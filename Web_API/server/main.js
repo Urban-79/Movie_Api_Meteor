@@ -50,5 +50,14 @@ function updateLikeMovie(idMovie) {
 
   //On retourne un truck
   return film.findOne({ id: idMovie });
-  // return {id: film.findOne({ id: idMovie }).id, like: film.findOne({ id: idMovie }).like}
+  
+}
+
+function addComments(idMovie,comments) {
+
+  filmCom.insert({ id: idMovie, com: comments });
+
+  //On retourne un truck
+  return filmCom.findOne({ id: idMovie });
+
 }

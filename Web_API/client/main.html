@@ -7,6 +7,11 @@
   {{> home}}
 </body>
 
+<template name="addComments">
+  <input type="text" id="form_{{id}}">
+  <button>Comments</button>
+</template>
+
 <template name="home">
   <h1>Movies List</h1>
   {{#each movies}}
@@ -15,5 +20,6 @@
   <!--<img src="https://image.tmdb.org/t/p/w500/{{poster_path}}">-->
   <button id="{{id}}">Click Me</button>
   <p>Count: <span id="span_{{id}}">{{like}}</span></p>
+  {{> addComments}}
   {{/each }}
 </template>

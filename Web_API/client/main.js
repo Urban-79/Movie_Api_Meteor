@@ -46,3 +46,9 @@ Template.home.events({
     HTTP.call('PUT', 'http://localhost:3000/api/like/' + idmovie, {}, function (error, response) { });
   },
 });
+
+Template.addComments.events({
+  'click button'(event) {
+    //get le from form=doc.getid?
+  },
+});
