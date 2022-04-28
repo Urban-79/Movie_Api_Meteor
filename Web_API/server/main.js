@@ -15,6 +15,7 @@ Meteor.startup(() => {
 WebApp.connectHandlers.use('/api/like', (req, res, next) => {
   const idMovie = req.url.slice(1);
   updateLikeMovie(idMovie);
+  console.log("Ajout d'un like à " + idMovie);
   res.end;
 });
 

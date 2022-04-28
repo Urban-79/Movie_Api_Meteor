@@ -15,6 +15,7 @@ Template.home.onCreated(function homeOnCreated() {
       let likeJSON = JSON.parse(response.content).results;
 
       for (let lecount = 0; lecount < leJson.length; lecount++) {
+        leJson[lecount].like = 0;
         for (let count = 0; count < likeJSON.length; count++) {
           console.log("Res : " + (leJson[count].id));
           if (leJson[lecount].id == likeJSON[count].id) {
