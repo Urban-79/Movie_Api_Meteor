@@ -10,8 +10,8 @@
 <template name="home">
   <h1>Movies List</h1>
   {{#each movies}}
-  <h5>{{title}}</h5>
-  <li>{{overview}}</li>
+  <h5>{{id}}</h5>
+  <li>{{id}}</li>
   <!--<img src="https://image.tmdb.org/t/p/w500/{{poster_path}}">-->
   <button id="{{id}}">Click Me</button>
   <p>Count: <span id="span_{{id}}">{{like}}</span></p>

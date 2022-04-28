@@ -4,7 +4,7 @@ import { Mongo } from 'meteor/mongo';
 import { HTTP } from 'meteor/http';
 
 //Connexion a la db
-const film =  new Mongo.Collection("film");
+const film = new Mongo.Collection("film");
 
 Meteor.startup(() => {
   // code to run on server at startup
@@ -20,11 +20,13 @@ WebApp.connectHandlers.use('/api/like', (req, res, next) => {
 
 //Renvoie les likes
 WebApp.connectHandlers.use('/api/find', (req, res, next) => {
-  console.log("api/find" ); 
-  let moviedata=findMovie();
-
+  console.log("api/find");
+  var moviedata = findMovie();
+  moviedata = JSON.stringify(moviedata) ;
+  moviedata = '{"results":' + moviedata +"}"
+  
   res.writeHead(200);
-  res.end(JSON.stringify({ maReponse: 'test retour' }));
+  res.end(moviedata);
 });
 
 function updateLikeMovie(idMovie) {
@@ -34,14 +36,14 @@ function updateLikeMovie(idMovie) {
 
   //Si il existe
   if (dbRessource) {
-      //On prend l'id du row et on increase son like de 1
-      film.update(
-          { _id: dbRessource._id },
-          { $inc: { like: 1 } }
-      );
+    //On prend l'id du row et on increase son like de 1
+    film.update(
+      { _id: dbRessource._id },
+      { $inc: { like: 1 } }
+    );
   } else {
-      //Si le row n'existe pas on l'ajoute
-      film.insert({ id: idMovie, like: 1 });
+    //Si le row n'existe pas on l'ajoute
+    film.insert({ id: idMovie, like: 1 });
   }
 
   //On retourne un truck
@@ -50,5 +52,5 @@ function updateLikeMovie(idMovie) {
 }
 
 function findMovie() {
-  return film.find().fetch();
+  return film.find({},{'_id':0}).fetch();
 }
