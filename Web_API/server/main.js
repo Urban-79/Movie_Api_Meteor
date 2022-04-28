@@ -22,9 +22,9 @@ WebApp.connectHandlers.use('/api/like', (req, res, next) => {
 WebApp.connectHandlers.use('/api/find', (req, res, next) => {
   var moviedata = findMovie();
   //On le string
-  moviedata = JSON.stringify(moviedata) ;
+  moviedata = JSON.stringify(moviedata);
   //Ajout du results pour avoir un id a chaque data
-  moviedata = '{"results":' + moviedata +"}";
+  moviedata = '{"results":' + moviedata + "}";
   //On repond au get
   res.writeHead(200);
   console.log("Recupération des likes");
