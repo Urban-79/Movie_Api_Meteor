@@ -8,7 +8,7 @@ const film = new Mongo.Collection("film");
 
 Meteor.startup(() => {
   // code to run on server at startup
-  console.log("HELLO FROM SERVER");
+  console.log("Server Start");
 });
 
 //Ajoute un like
@@ -20,11 +20,9 @@ WebApp.connectHandlers.use('/api/like', (req, res, next) => {
 
 //Renvoie les likes
 WebApp.connectHandlers.use('/api/find', (req, res, next) => {
-  console.log("api/find");
   var moviedata = findMovie();
   moviedata = JSON.stringify(moviedata) ;
-  moviedata = '{"results":' + moviedata +"}"
-  
+  moviedata = '{"results":' + moviedata +"}";
   res.writeHead(200);
   res.end(moviedata);
 });
@@ -52,5 +50,5 @@ function updateLikeMovie(idMovie) {
 }
 
 function findMovie() {
-  return film.find({},{'_id':0}).fetch();
+  return film.find().fetch();
 }
