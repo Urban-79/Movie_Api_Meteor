@@ -20,7 +20,7 @@ WebApp.connectHandlers.use('/api/like', (req, res, next) => {
 
 //Renvoie les likes
 WebApp.connectHandlers.use('/api/find', (req, res, next) => {
-  var moviedata = findMovie();
+  var moviedata = film.find().fetch();
   //On le string
   moviedata = JSON.stringify(moviedata);
   //Ajout du results pour avoir un id a chaque data
@@ -51,8 +51,4 @@ function updateLikeMovie(idMovie) {
   //On retourne un truck
   return film.findOne({ id: idMovie });
   // return {id: film.findOne({ id: idMovie }).id, like: film.findOne({ id: idMovie }).like}
-}
-
-function findMovie() {
-  return film.find().fetch();
 }
