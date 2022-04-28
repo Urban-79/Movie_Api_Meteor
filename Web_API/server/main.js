@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { Mongo } from 'meteor/mongo';
-import { HTTP } from 'meteor/http';
 
 //Connexion a la db
 const film = new Mongo.Collection("film");
@@ -22,9 +21,13 @@ WebApp.connectHandlers.use('/api/like', (req, res, next) => {
 //Renvoie les likes
 WebApp.connectHandlers.use('/api/find', (req, res, next) => {
   var moviedata = findMovie();
+  //On le string
   moviedata = JSON.stringify(moviedata) ;
+  //Ajout du results pour avoir un id a chaque data
   moviedata = '{"results":' + moviedata +"}";
+  //On repond au get
   res.writeHead(200);
+  console.log("Recupération des likes");
   res.end(moviedata);
 });
 
