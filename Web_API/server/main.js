@@ -1,9 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { Mongo } from 'meteor/mongo';
+import bodyParser from 'body-parser';
+
+WebApp.connectHandlers.use(bodyParser.json());
 
 //Connexion a la db
 const film = new Mongo.Collection("film");
+const comments = new Mongo.Collection("comments");
 
 Meteor.startup(() => {
   // code to run on server at startup
@@ -20,15 +24,24 @@ WebApp.connectHandlers.use('/api/like', (req, res, next) => {
 
 //Renvoie les likes
 WebApp.connectHandlers.use('/api/find', (req, res, next) => {
-  var moviedata = findMovie();
+  var moviedata = film.find().fetch();
   //On le string
-  moviedata = JSON.stringify(moviedata) ;
+  moviedata = JSON.stringify(moviedata);
   //Ajout du results pour avoir un id a chaque data
-  moviedata = '{"results":' + moviedata +"}";
+  moviedata = '{"results":' + moviedata + "}";
   //On repond au get
   res.writeHead(200);
   console.log("Recupération des likes");
   res.end(moviedata);
+});
+
+WebApp.connectHandlers.use('/api/comments',(req,res,next)=>{
+  data = req.body;
+
+  comments.insert({ id: data.idMovie, comment: data.comment });
+  console.log(data.idMovie + "&"+ data.comment);
+  res.writeHead(200);
+  res.end();
 });
 
 function updateLikeMovie(idMovie) {
@@ -50,9 +63,5 @@ function updateLikeMovie(idMovie) {
 
   //On retourne un truck
   return film.findOne({ id: idMovie });
-  // return {id: film.findOne({ id: idMovie }).id, like: film.findOne({ id: idMovie }).like}
-}
-
-function findMovie() {
-  return film.find().fetch();
+  
 }
