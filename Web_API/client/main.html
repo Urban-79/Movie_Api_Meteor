@@ -8,8 +8,13 @@
 </body>
 
 <template name="addComments">
-  <input type="text" id="form_{{id}}">
-  <button>Comments</button>
+  <input type="text" id="input_{{id}}">
+  <button id="{{id}}">Comments</button>
+</template>
+
+<template name="like">
+  <button id="{{id}}">Click Me</button>
+  <p>Count: <span id="span_{{id}}">{{like}}</span></p>
 </template>
 
 <template name="home">
@@ -18,8 +23,7 @@
   <h5>{{id}}</h5>
   <li>{{id}}</li>
   <!--<img src="https://image.tmdb.org/t/p/w500/{{poster_path}}">-->
-  <button id="{{id}}">Click Me</button>
-  <p>Count: <span id="span_{{id}}">{{like}}</span></p>
+  {{> like}}
   {{> addComments}}
   {{/each }}
 </template>

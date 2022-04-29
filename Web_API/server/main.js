@@ -4,6 +4,7 @@ import { Mongo } from 'meteor/mongo';
 
 //Connexion a la db
 const film = new Mongo.Collection("film");
+const comments = new Mongo.Collection("comments");
 
 Meteor.startup(() => {
   // code to run on server at startup
@@ -31,6 +32,16 @@ WebApp.connectHandlers.use('/api/find', (req, res, next) => {
   res.end(moviedata);
 });
 
+WebApp.connectHandlers.use('/api/comments',(req,res,next)=>{
+
+
+  
+
+  //comments.insert({ id: idMovie, com: comment });
+  res.writeHead(200);
+  res.end;
+});
+
 function updateLikeMovie(idMovie) {
 
   //On prend le row du film
@@ -51,13 +62,4 @@ function updateLikeMovie(idMovie) {
   //On retourne un truck
   return film.findOne({ id: idMovie });
   
-}
-
-function addComments(idMovie,comments) {
-
-  filmCom.insert({ id: idMovie, com: comments });
-
-  //On retourne un truck
-  return filmCom.findOne({ id: idMovie });
-
 }

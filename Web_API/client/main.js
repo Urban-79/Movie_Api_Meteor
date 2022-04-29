@@ -39,16 +39,27 @@ Template.home.helpers({
   },
 });
 
-Template.home.events({
+Template.like.events({
   'click button'(event, instance) {
     document.getElementById("span_" + event.target.id).innerHTML++;
-    const idmovie = event.target.id;
+    let idmovie = event.target.id;
     HTTP.call('PUT', 'http://localhost:3000/api/like/' + idmovie, {}, function (error, response) { });
   },
 });
 
 Template.addComments.events({
   'click button'(event) {
-    //get le from form=doc.getid?
+    //On chope l'input text
+    comments = document.getElementById("input_"+event.target.id).value;
+    
+    //On verifie si il n'est pas vide
+    if (comments.value != ""){
+      let idmovie = event.target.id;
+      HTTP.call('PUT', 'http://localhost:3000/api/comments/',{idMovie:idmovie,comment:comments}, function (error, response) { });
+    }else{
+      console.log("Vide");
+    }
+    //On vide l'input
+    document.getElementById("input_"+event.target.id).value = "";
   },
 });
