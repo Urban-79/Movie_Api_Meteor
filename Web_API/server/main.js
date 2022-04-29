@@ -35,11 +35,10 @@ WebApp.connectHandlers.use('/api/find', (req, res, next) => {
   res.end(moviedata);
 });
 
-WebApp.connectHandlers.use('/api/comments',(req,res,next)=>{
+WebApp.connectHandlers.use('/api/comments', (req, res, next) => {
   data = req.body;
-
   comments.insert({ id: data.idMovie, comment: data.comment });
-  console.log(data.idMovie + "&"+ data.comment);
+  console.log("Nouveau Commentaire: " + data.comment + " id: " + data.idMovie);
   res.writeHead(200);
   res.end();
 });
@@ -63,5 +62,5 @@ function updateLikeMovie(idMovie) {
 
   //On retourne un truck
   return film.findOne({ id: idMovie });
-  
+
 }
