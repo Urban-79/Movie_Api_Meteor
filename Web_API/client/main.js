@@ -50,7 +50,7 @@ Template.addComments.events({
     comments = document.getElementById("input_"+event.target.id).value;
     
     //On verifie si il n'est pas vide
-    if (comments.value != ""){
+    if (comments != ""){
       let idmovie = event.target.id;
       HTTP.call('POST', 'http://localhost:3000/api/comments/',{data : {idMovie:idmovie,comment:comments}}, function (error, response) {});
     }else{
