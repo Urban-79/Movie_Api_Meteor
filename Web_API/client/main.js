@@ -12,7 +12,7 @@ Template.home.onCreated(function homeOnCreated() {
     //On parse le json dans la variable
     let leJson = JSON.parse(response.content).results;
     //On prend les like de la base de donnée avec l'api server
-    HTTP.call('GET', 'http://localhost:3000/api/find', {}, function (error, response) {
+    HTTP.call('GET', 'http://localhost:3000/api/findLike', {}, function (error, response) {
       let likeJSON = JSON.parse(response.content).results;
       //On loop pour le meme id
       for (let lecount = 0; lecount < leJson.length; lecount++) {
@@ -29,6 +29,7 @@ Template.home.onCreated(function homeOnCreated() {
     });
   });
 });
+
 
 Template.home.helpers({
   movies() {
@@ -47,16 +48,16 @@ Template.like.events({
 Template.addComments.events({
   'click button'(event) {
     //On chope l'input text
-    comments = document.getElementById("input_"+event.target.id).value;
-    
+    comments = document.getElementById("input_" + event.target.id).value;
+
     //On verifie si il n'est pas vide
-    if (comments != ""){
+    if (comments != "") {
       let idmovie = event.target.id;
-      HTTP.call('POST', 'http://localhost:3000/api/comments/',{data : {idMovie:idmovie,comment:comments}}, function (error, response) {});
-    }else{
+      HTTP.call('POST', 'http://localhost:3000/api/comments/', { data: { idMovie: idmovie, comment: comments } }, function (error, response) { });
+    } else {
       console.log("Vide");
     }
     //On vide l'input
-    document.getElementById("input_"+event.target.id).value = "";
+    document.getElementById("input_" + event.target.id).value = "";
   },
 });

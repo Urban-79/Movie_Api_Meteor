@@ -7,6 +7,14 @@
   {{> home}}
 </body>
 
+<template name="Comments">
+  <div id="Comments_{{id}}">
+  {{#each com}}
+    <p>{{comment}}</p>
+  {{/each }}
+</div>
+</template>
+
 <template name="addComments">
   <input type="text" id="input_{{id}}">
   <button id="{{id}}">Comments</button>
@@ -20,10 +28,11 @@
 <template name="home">
   <h1>Movies List</h1>
   {{#each movies}}
-  <h5>{{title}}</h5>
-  <li>{{overview}}</li>
-  <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}">
+  <h5>{{id}}</h5>
+  <li>{{id}}</li>
+  <!--<img src="https://image.tmdb.org/t/p/w500/{{poster_path}}">-->
   {{> like}}
+  {{> Comments}}
   {{> addComments}}
   {{/each }}
 </template>

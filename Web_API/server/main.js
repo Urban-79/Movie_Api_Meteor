@@ -7,7 +7,7 @@ WebApp.connectHandlers.use(bodyParser.json());
 
 //Connexion a la db
 const film = new Mongo.Collection("film");
-const comments = new Mongo.Collection("comments");
+const commentsDB = new Mongo.Collection("comments");
 
 Meteor.startup(() => {
   // code to run on server at startup
@@ -22,8 +22,16 @@ WebApp.connectHandlers.use('/api/like', (req, res, next) => {
   res.end;
 });
 
+WebApp.connectHandlers.use('/api/comments', (req, res, next) => {
+  data = req.body;
+  commentsDB.insert({ id: data.idMovie, comment: data.comment });
+  console.log("Nouveau Commentaire: " + data.comment + " id: " + data.idMovie);
+  res.writeHead(200);
+  res.end();
+});
+
 //Renvoie les likes
-WebApp.connectHandlers.use('/api/find', (req, res, next) => {
+WebApp.connectHandlers.use('/api/findLike', (req, res, next) => {
   var moviedata = film.find().fetch();
   //On le string
   moviedata = JSON.stringify(moviedata);
@@ -35,14 +43,19 @@ WebApp.connectHandlers.use('/api/find', (req, res, next) => {
   res.end(moviedata);
 });
 
-WebApp.connectHandlers.use('/api/comments',(req,res,next)=>{
-  data = req.body;
-
-  comments.insert({ id: data.idMovie, comment: data.comment });
-  console.log(data.idMovie + "&"+ data.comment);
+//Renvoie les commentaires
+WebApp.connectHandlers.use('/api/findComments', (req, res, next) => {
+  var comments = commentsDB.find().fetch();
+  //On le string
+  comments = JSON.stringify(comments);
+  //Ajout du results pour avoir un id a chaque data
+  comments = '{"results":' + comments + "}";
+  //On repond au get
   res.writeHead(200);
-  res.end();
+  console.log("Recupération des commentaires");
+  res.end(comments);
 });
+
 
 function updateLikeMovie(idMovie) {
 
@@ -63,5 +76,5 @@ function updateLikeMovie(idMovie) {
 
   //On retourne un truck
   return film.findOne({ id: idMovie });
-  
+
 }
