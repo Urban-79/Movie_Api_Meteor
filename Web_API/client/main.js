@@ -12,7 +12,7 @@ Template.home.onCreated(function homeOnCreated() {
     //On parse le json dans la variable
     let leJson = JSON.parse(response.content).results;
     //On prend les like de la base de donnée avec l'api server
-    HTTP.call('GET', 'http://localhost:3000/api/find', {}, function (error, response) {
+    HTTP.call('GET', 'http://localhost:3000/api/findLike', {}, function (error, response) {
       let likeJSON = JSON.parse(response.content).results;
       //On loop pour le meme id
       for (let lecount = 0; lecount < leJson.length; lecount++) {
@@ -29,6 +29,7 @@ Template.home.onCreated(function homeOnCreated() {
     });
   });
 });
+
 
 Template.home.helpers({
   movies() {
