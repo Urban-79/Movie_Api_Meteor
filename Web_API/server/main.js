@@ -1,6 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { Mongo } from 'meteor/mongo';
+import bodyParser from 'body-parser';
+
+WebApp.connectHandlers.use(bodyParser.json());
 
 //Connexion a la db
 const film = new Mongo.Collection("film");
@@ -33,13 +36,12 @@ WebApp.connectHandlers.use('/api/find', (req, res, next) => {
 });
 
 WebApp.connectHandlers.use('/api/comments',(req,res,next)=>{
+  data = req.body;
 
-
-  
-
-  //comments.insert({ id: idMovie, com: comment });
+  comments.insert({ id: data.idMovie, comment: data.comment });
+  console.log(data.idMovie + "&"+ data.comment);
   res.writeHead(200);
-  res.end;
+  res.end();
 });
 
 function updateLikeMovie(idMovie) {
