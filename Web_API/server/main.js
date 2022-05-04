@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { Mongo } from 'meteor/mongo';
 import bodyParser from 'body-parser';
+import { data } from 'jquery';
 
 WebApp.connectHandlers.use(bodyParser.json());
 
@@ -24,8 +25,10 @@ WebApp.connectHandlers.use('/api/like', (req, res, next) => {
 
 WebApp.connectHandlers.use('/api/comments', (req, res, next) => {
   data = req.body;
-  commentsDB.insert({ id: data.idMovie, comment: data.comment });
-  console.log("Nouveau Commentaire: " + data.comment + " id: " + data.idMovie);
+  if(data.comment && data.idMovie){
+    commentsDB.insert({ id: data.idMovie, comment: data.comment });
+    console.log("Nouveau Commentaire: " + data.comment + " id: " + data.idMovie);
+  }
   res.writeHead(200);
   res.end();
 });
