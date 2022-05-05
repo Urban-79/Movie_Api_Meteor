@@ -26,6 +26,7 @@ Template.home.onCreated(function homeOnCreated() {
       }
       //On envoie au html
       ctrl.movies.set(leJson);
+      affiComment();
     });
   });
 });
@@ -53,6 +54,7 @@ Template.addComments.events({
     //On verifie si il n'est pas vide
     if (comments != "") {
       let idmovie = event.target.id;
+      document.getElementById("Comments_" + idmovie).innerHTML = document.getElementById("Comments_" + idmovie).innerHTML + "<p>" + comments + "</p>";
       HTTP.call('POST', 'http://localhost:3000/api/comments/', { data: { idMovie: idmovie, comment: comments } }, function (error, response) { });
     } else {
       console.log("Vide");
@@ -61,3 +63,16 @@ Template.addComments.events({
     document.getElementById("input_" + event.target.id).value = "";
   },
 });
+
+function affiComment() {
+
+  HTTP.call('GET', 'http://localhost:3000/api/findComments', {}, function (error, response) {
+    let json = JSON.parse(response.content).results;
+    console.log("Bfor");
+    for (let acount = 0; acount < json.length; acount++) {
+      console.log("Comments_" + json[acount].id + "Com =" +json[acount].comment);
+      document.getElementById("Comments_" + json[acount].id).innerHTML = document.getElementById("Comments_" + json[acount].id).innerHTML + "<p>" + json[acount].comment + "</p>";
+    }
+  });
+  
+}
