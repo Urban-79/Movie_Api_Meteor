@@ -68,9 +68,7 @@ function affiComment() {
 
   HTTP.call('GET', 'http://localhost:3000/api/findComments', {}, function (error, response) {
     let json = JSON.parse(response.content).results;
-    console.log("Bfor");
     for (let acount = 0; acount < json.length; acount++) {
-      console.log("Comments_" + json[acount].id + "Com =" +json[acount].comment);
       document.getElementById("Comments_" + json[acount].id).innerHTML = document.getElementById("Comments_" + json[acount].id).innerHTML + "<p>" + json[acount].comment + "</p>";
     }
   });
