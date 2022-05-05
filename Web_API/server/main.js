@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { Mongo } from 'meteor/mongo';
-import bodyParser from 'body-parser';
 
 WebApp.connectHandlers.use(bodyParser.json());
 
