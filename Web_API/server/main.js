@@ -25,7 +25,7 @@ WebApp.connectHandlers.use('/api/like', (req, res, next) => {
 
 WebApp.connectHandlers.use('/api/comments', (req, res, next) => {
   data = req.body;
-  if(data.comment && data.idMovie){
+  if (data.comment && data.idMovie) {
     commentsDB.insert({ id: data.idMovie, comment: data.comment });
     console.log("Nouveau Commentaire: " + data.comment + " id: " + data.idMovie);
   }

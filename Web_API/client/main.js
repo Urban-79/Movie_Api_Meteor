@@ -72,5 +72,4 @@ function affiComment() {
       document.getElementById("Comments_" + json[acount].id).innerHTML = document.getElementById("Comments_" + json[acount].id).innerHTML + "<p>" + json[acount].comment + "</p>";
     }
   });
-  
 }
