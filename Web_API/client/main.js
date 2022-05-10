@@ -4,13 +4,33 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import './main.html';
 
 Template.home.onCreated(function homeOnCreated() {
-  // counter starts at 0
   let ctrl = this;
   this.movies = new ReactiveVar();
-  HTTP.call('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=4ec050aec0b57f2c30391a6cb27295ee&language=fr-FR', {}, function(error, response) {
-    ctrl.movies.set(JSON.parse(response.content).results)
+
+  //On prend les films avec l'api
+  HTTP.call('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=4ec050aec0b57f2c30391a6cb27295ee&language=fr-FR', {}, function (error, response) {
+    //On parse le json dans la variable
+    let leJson = JSON.parse(response.content).results;
+    //On prend les like de la base de donnée avec l'api server
+    HTTP.call('GET', 'http://localhost:3000/api/findLike', {}, function (error, response) {
+      let likeJSON = JSON.parse(response.content).results;
+      //On loop pour le meme id
+      for (let lecount = 0; lecount < leJson.length; lecount++) {
+        leJson[lecount].like = 0;
+        for (let count = 0; count < likeJSON.length; count++) {
+          if (leJson[lecount].id == likeJSON[count].id) {
+            //Si meme id on ajoute le like
+            leJson[lecount].like = likeJSON[count].like;
+          }
+        }
+      }
+      //On envoie au html
+      ctrl.movies.set(leJson);
+      affiComment();
+    });
   });
 });
+
 
 Template.home.helpers({
   movies() {
@@ -18,11 +38,41 @@ Template.home.helpers({
   },
 });
 
-//fonction ajout like
-Template.home.events({
+Template.like.events({
   'click button'(event, instance) {
-    var idOfSpan=event.target.id;
-    document.getElementById("span_"+event.target.id).innerHTML++;
-    //instance.counter.set(instance.counter.get() + 1);
+    document.getElementById("span_" + event.target.id).innerHTML++;
+    let idmovie = event.target.id;
+    HTTP.call('PUT', 'http://localhost:3000/api/like/' + idmovie, {}, function (error, response) { });
   },
 });
+
+Template.addComments.events({
+  'click button'(event) {
+    //On chope l'input text
+    comments = document.getElementById("input_" + event.target.id).value;
+
+    //On verifie si il n'est pas vide
+    if (comments != "") {
+      let idmovie = event.target.id;
+      document.getElementById("Comments_" + idmovie).innerHTML = document.getElementById("Comments_" + idmovie).innerHTML + "<p>" + comments + "</p>";
+      HTTP.call('POST', 'http://localhost:3000/api/comments/', { data: { idMovie: idmovie, comment: comments } }, function (error, response) { });
+    } else {
+      console.log("Vide");
+    }
+    //On vide l'input
+    document.getElementById("input_" + event.target.id).value = "";
+  },
+});
+
+function affiComment() {
+
+  HTTP.call('GET', 'http://localhost:3000/api/findComments', {}, function (error, response) {
+    let json = JSON.parse(response.content).results;
+    console.log("Bfor");
+    for (let acount = 0; acount < json.length; acount++) {
+      console.log("Comments_" + json[acount].id + "Com =" +json[acount].comment);
+      document.getElementById("Comments_" + json[acount].id).innerHTML = document.getElementById("Comments_" + json[acount].id).innerHTML + "<p>" + json[acount].comment + "</p>";
+    }
+  });
+  
+}
