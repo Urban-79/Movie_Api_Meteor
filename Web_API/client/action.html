@@ -1,0 +1,40 @@
+<head>
+    <title>Web_API</title>
+</head>
+
+<body>
+<h1>Les films d'action</h1>
+{{> home}}
+</body>
+
+<template name="discover">
+    <button>Discover</button>
+</template>
+
+<!--<template name="Comments">-->
+<!--    <div id="Comments_{{id}}">-->
+<!--    </div>-->
+<!--</template>-->
+
+<!--<template name="addComments">-->
+<!--    <input type="text" id="input_{{id}}">-->
+<!--    <button id="{{id}}">Comments</button>-->
+<!--</template>-->
+
+<!--<template name="like">-->
+<!--    <button id="{{id}}">Like</button>-->
+<!--    <p>Like: <span id="span_{{id}}">{{like}}</span></p>-->
+<!--</template>-->
+
+<template name="home">
+    {{> discover}}
+    <h1>Movies List</h1>
+    {{#each movies}}
+    <h2>{{original_title}}</h2>
+    <li>{{overview}}</li>
+    <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}">
+<!--    {{> like}}-->
+<!--    {{> addComments}}-->
+<!--    {{> Comments}}-->
+    {{/each }}
+</template>

@@ -7,6 +7,10 @@
   {{> home}}
 </body>
 
+<template name="action">
+ <button>Film d'action</button>
+</template>
+
 <template name="Comments">
   <div id="Comments_{{id}}">
   </div>
@@ -19,10 +23,11 @@
 
 <template name="like">
   <button id="{{id}}">Like</button>
-  <p>Count: <span id="span_{{id}}">{{like}}</span></p>
+  <p>Like: <span id="span_{{id}}">{{like}}</span></p>
 </template>
 
 <template name="home">
+  {{> action}}
   <h1>Movies List</h1>
   {{#each movies}}
   <h2>{{original_title}}</h2>

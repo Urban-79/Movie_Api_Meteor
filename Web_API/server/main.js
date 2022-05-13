@@ -14,12 +14,29 @@ Meteor.startup(() => {
   console.log("Server Start");
 });
 
+//appel de l'API
+WebApp.connectHandlers.use('/api/movies', (req, res, next) => {
+  HTTP.call('GET', 'https://api.themoviedb.org/3/discover/movie?api_key=4ec050aec0b57f2c30391a6cb27295ee&language=fr-FR', {},
+      function (error, response) {
+       let moviesData = response.data;
+        res.writeHead(200);
+        res.end(JSON.stringify(moviesData));
+      });
+});
+
 //Ajoute un like
 WebApp.connectHandlers.use('/api/like', (req, res, next) => {
   const idMovie = req.url.slice(1);
-  updateLikeMovie(idMovie);
+  var toReturn = updateLikeMovie(idMovie);
   console.log("Ajout d'un like à " + idMovie);
-  res.end;
+  res.writeHead(200);
+  toReturn = JSON.stringify(toReturn);
+  //toReturn = '{"results":' + toReturn + "}";
+
+  console.log(toReturn);
+  res.write(toReturn);
+
+  res.end();
 });
 
 WebApp.connectHandlers.use('/api/comments', (req, res, next) => {
@@ -76,7 +93,7 @@ function updateLikeMovie(idMovie) {
     film.insert({ id: idMovie, like: 1 });
   }
 
-  //On retourne un truck
+  //On retourne un l'id du film
   return film.findOne({ id: idMovie });
 
 }
