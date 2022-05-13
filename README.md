@@ -6,6 +6,7 @@ A rendre le dimanche 15 mai
 - Correntin PANNIER
 - Quentin VIEGAS
 
-### Run Project : 
+### Install Dependancy and run project: 
+- ```npm i meteor-version-parser```
 - ```cd /Web_API/```
 - ```meteor run```
