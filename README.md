@@ -3,7 +3,7 @@ A rendre le dimanche 15 mai
 
 ### Groupe : 
 - Mael LAMBERT
-- Correntin PANNIER
+- Corentin PANNIER
 - Quentin VIEGAS
 
 ### Install Dependancy and run project: 
